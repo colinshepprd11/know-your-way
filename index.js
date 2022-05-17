@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/api', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     res.send('hi from server')
   } catch (err) {
@@ -16,6 +16,6 @@ app.get('/api', async (req, res) => {
 });
 
 
-app.listen(5000, async (err) => {
-  console.log('API endpoint listening on port 5000');
+app.listen(8080, async (err) => {
+  console.log('API endpoint listening on port 8080');
 });
