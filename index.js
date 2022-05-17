@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 app.get('/api', async (req, res) => {
   try {
-    res.send('hi')
+    res.send('hi from server')
   } catch (err) {
     console.log(err);
     logger.info(err);
