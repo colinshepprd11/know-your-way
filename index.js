@@ -27,6 +27,8 @@ const client = new Client({
   }
 })
 
+console.log(`connectionString: ${connectionString}`)
+
 // INIT DB AND SERVER
 client
   .connect()
