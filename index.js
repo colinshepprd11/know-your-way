@@ -9,7 +9,8 @@ const { Client } = require('pg')
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-const serverPort = 80
+
+const serverPort = process.env.PORT || 80
 
 app.get('/', async (req, res) => {
   try {
