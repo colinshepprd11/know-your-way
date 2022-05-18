@@ -30,13 +30,17 @@ const client = new Client({
 console.log(`connectionString: ${connectionString}`)
 
 // INIT DB AND SERVER
-client
-  .connect()
-  .then(() => {
-    app.listen(serverPort, async (err) => {
-      console.log(`API endpoint listening on port ${serverPort}`);
-    });
-  })
-  .catch(err => {
-    console.log(err)
-  })
+// client
+//   .connect()
+//   .then(() => {
+//     app.listen(serverPort, async (err) => {
+//       console.log(`API endpoint listening on port ${serverPort}`);
+//     });
+//   })
+//   .catch(err => {
+//     console.log(err)
+//   })
+
+app.listen(serverPort, async (err) => {
+  console.log(`API endpoint listening on port ${serverPort}`);
+});
