@@ -14,34 +14,30 @@ const serverPort = process.env.PORT || 80
 
 app.get('/', async (req, res) => {
   try {
-    res.send('hi from server')
+    res.send(`hi from server port:${serverPort}`)
   } catch (err) {
     console.log(err);
   }
 });
 
-// const connectionString = process.env.DATABASE_URL;
-// const client = new Client({
-//   connectionString,
-//   ssl: {
-//     rejectUnauthorized: false
-//   }
-// })
+// SETUP DB CLIENT
+const connectionString = process.env.DATABASE_URL;
+const client = new Client({
+  connectionString,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
 
-// console.log(`connectionString: ${connectionString}`)
 
 // INIT DB AND SERVER
-// client
-//   .connect()
-//   .then(() => {
-//     app.listen(serverPort, async (err) => {
-//       console.log(`API endpoint listening on port ${serverPort}`);
-//     });
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })
-
-app.listen(serverPort, async (err) => {
-  console.log(`API endpoint listening on port ${serverPort}`);
-});
+client
+  .connect()
+  .then(() => {
+    app.listen(serverPort, async (err) => {
+      console.log(`API endpoint listening on port ${serverPort}`);
+    });
+  })
+  .catch(err => {
+    console.log(err)
+  })
