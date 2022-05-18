@@ -11,6 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const serverPort = process.env.PORT || 80
+const connectionString = process.env.DATABASE_URL;
 
 app.get('/', async (req, res) => {
   try {
@@ -20,15 +21,23 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.post('/api/user', async (req, res) => {
+  try {
+    // await databaseConnect.insertUser(dbConnection, req.body.user);
+    res.send({});
+  } catch (err) {
+    console.log(err);
+    logger.info(err);
+  }
+});
+
 // SETUP DB CLIENT
-const connectionString = process.env.DATABASE_URL;
 const client = new Client({
   connectionString,
   ssl: {
     rejectUnauthorized: false
   }
 })
-
 
 // INIT DB AND SERVER
 client
