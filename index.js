@@ -13,7 +13,7 @@ const serverPort = 80
 
 app.get('/', async (req, res) => {
   try {
-    res.send('hi from server!')
+    res.send('hi from server')
   } catch (err) {
     console.log(err);
   }
