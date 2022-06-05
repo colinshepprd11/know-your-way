@@ -3,7 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { Client } = require('pg')
+const { Client } = require('pg');
+const moment = require('moment-timezone');
+
+
+// SETUP TIMEZONE
+var momentObject = moment.tz("America/New_York");
 
 // SETUP SERVER
 const app = express();
@@ -21,6 +26,7 @@ app.get('/', async (req, res) => {
   }
 });
 
+// Post new CB user (colinsheppard10.github.io)
 app.post('/api/user', async (req, res) => {
   try {
     const {user} = req.body
@@ -37,6 +43,42 @@ app.post('/api/user', async (req, res) => {
   }
 });
 
+// Get computation results (colinshepprd11.github.io)
+app.get('/api/data', async (req, res) => {
+  try {
+    const text = 'SELECT * from morning_routine;'
+    const results = await client.query(text);
+    res.send(results.rows);
+  } catch (err) {
+    console.log(err);
+    res.send({success:false});
+  }
+});
+
+// Post computation daily result (colinshepprd11.github.io)
+app.post('/api/insert', async (req, res) => {
+  try {
+    const currentDate = momentObject.format('yyyy-MM-DD')
+    const getQuery = `SELECT * from morning_routine where "time" = '${currentDate}';`
+    const queryResults = await client.query(getQuery);
+    let insertStatement;
+    if(queryResults.rows.length) {
+      const currentValue = queryResults.rows[0].study_session_results + 1;
+      insertStatement = `UPDATE morning_routine set "study_session_results" = ${currentValue} where "time" = '${currentDate}';`
+    } else {
+      insertStatement = `INSERT INTO morning_routine (time) VALUES ('${currentDate}');`
+    }
+    await client.query(insertStatement);
+
+    const text = 'SELECT * from morning_routine;'
+    const results = await client.query(text);
+    res.send(results.rows);
+
+  } catch (err) {
+    console.log(err);
+    res.send({success:false});
+  }
+});
 
 // SETUP DB CLIENT
 const client = new Client({
