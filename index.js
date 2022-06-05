@@ -99,3 +99,17 @@ client
   .catch(err => {
     console.log(err)
   })
+
+//   CREATE TABLE userx (
+//     time DATE DEFAULT CURRENT_DATE,
+//     firstName varchar(255),
+//     lastName varchar(255),
+//     email varchar(255)
+// );
+
+// CREATE TABLE morning_routine(
+//     time DATE PRIMARY KEY,
+//     computation_correct INT,
+//     random_correct INT,
+//     study_session_results INT DEFAULT 1 
+// );
