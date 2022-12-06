@@ -20,7 +20,7 @@ const connectionString = process.env.DATABASE_URL;
 
 app.get('/', async (req, res) => {
   try {
-    res.send(`hi from server port :${serverPort}`)
+    res.send(`hi from server port:${serverPort}`)
   } catch (err) {
     console.log(err);
   }
