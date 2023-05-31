@@ -7,7 +7,7 @@ const { Client } = require('pg');
 const moment = require('moment-timezone');
 
 
-// SETUP TIMEZONE
+// SETUP TIMEZONE edit
 var momentObject = moment.tz("America/New_York");
 
 // SETUP SERVER
