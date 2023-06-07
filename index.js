@@ -58,15 +58,15 @@ app.get('/api/data', async (req, res) => {
 // Post computation daily result (colinshepprd11.github.io)
 app.post('/api/insert', async (req, res) => {
   try {
+    const {randomResults} = req.body
     const currentDate = momentObject.format('yyyy-MM-DD')
     const getQuery = `SELECT * from morning_routine where "time" = '${currentDate}';`
     const queryResults = await client.query(getQuery);
     let insertStatement;
     if(queryResults.rows.length) {
-      const currentValue = queryResults.rows[0].study_session_results + 1;
-      insertStatement = `UPDATE morning_routine set "study_session_results" = ${currentValue} where "time" = '${currentDate}';`
+      insertStatement = `UPDATE morning_routine set "study_session_results" = ${randomResults} where "time" = '${currentDate}';`
     } else {
-      insertStatement = `INSERT INTO morning_routine (time) VALUES ('${currentDate}');`
+      insertStatement = `INSERT INTO morning_routine (time, study_session_results) VALUES ('${currentDate}', ${randomResults});`
     }
     await client.query(insertStatement);
 
